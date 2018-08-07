@@ -16,6 +16,19 @@ class TodoController extends Telegram.TelegramBaseController {
             });
     }
 
+    checkHandler($) {
+        let index = parseInt($.message.text.split(' ').slice(1)[0]);;
+        if (isNaN(index)) return $.sendMessage('Not a valid index');
+
+        $.getUserSession('todos')
+        .then(todos => {
+            if (index >= todos.length) return $.sendMessage('You\'re index is too high.');
+            todos.splice(index, 1);
+            $.setUserSession('todos', todos);
+            $.sendMessage('Checked todo!');
+        });
+    }
+
     getHandler($) {
         $.getUserSession('todos').then(todos => {
             $.sendMessage(this._serializeList(todos), {parse_mode: 'Markdown'}); // [foo, bar] --> foo, bar
@@ -26,6 +39,7 @@ class TodoController extends Telegram.TelegramBaseController {
         return {
             'addCommand': 'addHandler',
             'getCommand': 'getHandler',
+            'checkCommand': 'checkHandler'
         };
     }
 
