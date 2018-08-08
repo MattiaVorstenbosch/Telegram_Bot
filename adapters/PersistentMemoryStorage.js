@@ -1,9 +1,9 @@
 'use strict';
 
 const Telegram = require('telegram-node-bot'),
- fs = require('fs');
+    fs = require('fs');
 
-class PersistMemoryStorage extends Telegram.BaseStorage {
+class PersistentMemoryStorage extends Telegram.BaseStorage {
     constructor(userStoragePath, chatStoragePath) {
         super();
 
@@ -40,7 +40,6 @@ class PersistMemoryStorage extends Telegram.BaseStorage {
     }
 
     flush() {
-        console.log('flushing');
         if (this.clean) return;
         fs.writeFileSync(this.userStoragePath, JSON.stringify(this._storage.userStorage));
         fs.writeFileSync(this.chatStoragePath, JSON.stringify(this._storage.chatStorage));
@@ -48,4 +47,4 @@ class PersistMemoryStorage extends Telegram.BaseStorage {
     }
 }
 
-module.exports = PersistMemoryStorage;
+module.exports = PersistentMemoryStorage;
