@@ -1,5 +1,21 @@
 'use strict';
 
+// const request = require('request-promise');
+
+// const options = {
+//     method: 'GET',
+//     uri: 'https://api.telegram.org/bot646247640:AAFTztegZGgyeFMpXXLdLnfWyNLrAesF6oY/getUpdates',
+//     json: true,
+// }
+
+// request(options)
+//     .then((response) => {
+//         console.log(response);
+//     })
+//     .catch((err) => {
+
+//     });
+
 const Telegram = require('telegram-node-bot'),
     PersistentMemoryStorage = require('./adapters/PersistentMemoryStorage'),
     storage = new PersistentMemoryStorage(
@@ -27,4 +43,6 @@ function exitHandler(exitCode) {
 }
 
 process.on('SIGINT', exitHandler.bind(null, 0));
-process.on('uncaughtException', exitHandler.bind(null, 1));
+// process.on('uncaughtException', exitHandler.bind(null, 1), (error) => {
+//     console.log("\x1b[31m", "Exception: ", error, "\x1b[0m");
+// });

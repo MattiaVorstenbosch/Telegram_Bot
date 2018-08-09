@@ -4,15 +4,19 @@ const Telegram = require('telegram-node-bot');
 
 class TodoController extends Telegram.TelegramBaseController {
     addHandler($) {
+        const user = $._update._message._from._firstName;
         let todo = $.message.text.split(' ').slice(1).join(' ');
-
-        if (!todo) return $.sendMessage('Sorry, please pass a todo item.');
+        if (!todo) return $.sendMessage(`Sorry ${user}, please pass a valid todo item.`);
 
         $.getUserSession('todos')
             .then(todos => {
                 if (!Array.isArray(todos)) $.setUserSession('todos', [todo]);
                 else $.setUserSession('todos', todos.concat([todo]));
-                $.sendMessage('Added new todo!');
+
+                
+                $.sendMessage(`${user} added *${todo}* to the list!`, {
+                    parse_mode: 'Markdown'
+                });
             });
     }
 

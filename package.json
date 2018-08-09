@@ -11,6 +11,8 @@
   "license": "ISC",
   "dependencies": {
     "eslint": "^5.3.0",
+    "request": "^2.87.0",
+    "request-promise": "^4.2.2",
     "telegram-node-bot": "^4.0.5"
   }
 }
